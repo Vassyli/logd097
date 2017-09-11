@@ -6,6 +6,7 @@ logs/*
 
 dbtest.sqlite
 .sqlite
+dbconnect.php
 
 #################
 ## NetBeans
