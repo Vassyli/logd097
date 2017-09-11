@@ -38,11 +38,11 @@ $dbqueriesthishit=0;
 $dbtimethishit = 0;
 
 function db_query($sql){
-global $session,$dbqueriesthishit,$dbtimethishit;
+global $session,$dbqueriesthishit,$dbtimethishit,$global_mysqli_link;
 	$dbqueriesthishit++;
 $dbtimethishit -= getmicrotime();
 	$fname = DBTYPE."_query";
-	$r = $fname($sql) or die(($session[user][superuser]>=3 || 1?"<pre>".HTMLEntities($sql)."</pre>":"").db_error(LINK));
+	$r = $fname($global_mysqli_link, $sql) or die(($session[user][superuser]>=3 || 1?"<pre>".HTMLEntities($sql)."</pre>":"").db_error($global_mysqli_link));
 $dbtimethishit += getmicrotime();
 	//$x = strpos($sql,"WHERE");
 	//if ($x!==false) {
@@ -60,11 +60,11 @@ $dbtimethishit += getmicrotime();
 }
 
 function db_insert_id($link=false) {
-global $dbtimethishit;
+global $dbtimethishit,$global_mysqli_link;
 $dbtimethishit -= getmicrotime();
 	$fname = DBTYPE."_insert_id";	
 	if ($link===false) {
-		$r = $fname();
+		$r = $fname($global_mysqli_link);
 	}else{
 		$r = $fname($link);
 	}
@@ -97,11 +97,11 @@ function db_num_rows($result){
 }
 
 function db_affected_rows($link=false){
-	global $dbtimethishit;
+	global $dbtimethishit,$global_mysqli_link;
 	$dbtimethishit -= getmicrotime();
 	$fname = DBTYPE."_affected_rows";
 	if ($link===false) {
-		$r = $fname();
+		$r = $fname($global_mysqli_link);
 	}else{
 		$r = $fname($link);
 	}
@@ -110,10 +110,11 @@ function db_affected_rows($link=false){
 }
 
 function db_pconnect($host,$user,$pass){
-	global $dbtimethishit;
+	global $dbtimethishit, $global_mysqli_link;
 	$dbtimethishit -= getmicrotime();
 	$fname = DBTYPE."_connect";
 	$r = $fname($host,$user,$pass);
+    $global_mysqli_link = $r;
 	$dbtimethishit += getmicrotime();
 	return $r;
 }

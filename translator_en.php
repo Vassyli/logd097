@@ -1,4 +1,4 @@
-<?
+<?php
 /* Format for translator.php
  Each translatable page has its own entry below, locate the page where the text you want
  to translate is, and populate the $replace array with "From"=>"To" translation combinations.
