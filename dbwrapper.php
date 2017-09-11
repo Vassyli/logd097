@@ -1,20 +1,24 @@
 <?php
 
 // 21072004
+// 11092017 changes for php 7.1
 
 //do some cleanup here to make sure magic_quotes_gpc is ON, and magic_quotes_runtime is OFF, and error reporting is all but notice.
 error_reporting (E_ALL ^ E_NOTICE);
+
+// compability for old style global vars
+$HTTP_GET_VARS &= $_GET;
+$HTTP_POST_VARS &= $_POST;
+$HTTP_COOKIE_VARS &= $_COOKIE;
+$HTTP_SESSION_VARS &= $_SESSION;
+
 if (!get_magic_quotes_gpc()){
 	set_magic_quotes($_GET);
 	set_magic_quotes($_POST);
 	set_magic_quotes($_SESSION);
 	set_magic_quotes($_COOKIE);
-	set_magic_quotes($HTTP_GET_VARS);
-	set_magic_quotes($HTTP_POST_VARS);
-	set_magic_quotes($HTTP_COOKIE_VARS);
 	ini_set("magic_quotes_gpc",1);
 }
-set_magic_quotes_runtime(0);
 
 function set_magic_quotes(&$vars) {
 	//eval("\$vars_val =& \$GLOBALS[$vars]$suffix;");
