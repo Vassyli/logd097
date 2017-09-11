@@ -19,10 +19,10 @@ function pvpwarning($dokill=false) {
 		$session['user']['user']['pk'] == 0 &&
 		$session['user']['experience'] <= $exp) {
 		if ($dokill) {
-			output("`\$Warnung!`^ Da du selbst noch vor PvP geschützt warst, aber jetzt einen anderen Spieler angreifst, hast du deine Immunität verloren!!`n`n");
+			output("`\$Warnung!`^ Da du selbst noch vor PvP geschï¿½tzt warst, aber jetzt einen anderen Spieler angreifst, hast du deine Immunitï¿½t verloren!!`n`n");
 			$session['user']['pk'] = 1;
 		} else {
-			output("`\$Warnung!`^ Innerhalb der ersten $days  Tage in dieser Welt, oder bis sie $exp Erfahrungspunkte gesammelt haben, sind alle Spieler vor PvP-Angriffen geschützt. Wenn du einen anderen Spieler angreifst, verfällt diese Immunität für dich!`n`n");
+			output("`\$Warnung!`^ Innerhalb der ersten $days  Tage in dieser Welt, oder bis sie $exp Erfahrungspunkte gesammelt haben, sind alle Spieler vor PvP-Angriffen geschï¿½tzt. Wenn du einen anderen Spieler angreifst, verfï¿½llt diese Immunitï¿½t fï¿½r dich!`n`n");
 		}
 	}
 }
@@ -153,32 +153,32 @@ function isnewday($level){
 		$session['output']="";
 		page_header("FREVEL!");
 		$session['bufflist']['angrygods']=array(
-			"name"=>"`^Die Götter sind wütend!",
+			"name"=>"`^Die Gï¿½tter sind wï¿½tend!",
 			"rounds"=>10,
-			"wearoff"=>"`^Es ist den Göttern langweilig geworden, dich zu quälen.",
+			"wearoff"=>"`^Es ist den Gï¿½ttern langweilig geworden, dich zu quï¿½len.",
 			"minioncount"=>$session['user']['level'],
 			"maxgoodguydamage"=> 2,
-			"effectmsg"=>"`7Die Götter verfluchen dich und machen dir `^{damage}`7 Schaden!",
-			"effectnodmgmsg"=>"`7Die Götter haben beschlossen, dich erstmal nicht zu quälen.",
+			"effectmsg"=>"`7Die Gï¿½tter verfluchen dich und machen dir `^{damage}`7 Schaden!",
+			"effectnodmgmsg"=>"`7Die Gï¿½tter haben beschlossen, dich erstmal nicht zu quï¿½len.",
 			"activate"=>"roundstart",
 			"survivenewday"=>1,
-			"newdaymessage"=>"`6Die Götter sind dir immer noch böse!"
+			"newdaymessage"=>"`6Die Gï¿½tter sind dir immer noch bï¿½se!"
 		);
-		output("Für den Versuch, die Götter zu betrügen, wurdest du niedergeschmettert!`n`n");
-		output("`\$Ramius, der Gott der Toten`) erscheint dir in einer Vision. Dafür, dass du versucht hast, deinen Geist mit seinem zu messen, sagt er dir wortlos, dass du keinen Gefallen mehr bei ihm hast.`n`n");
-		addnews("`&Für den Versuch, die Götter zu besudeln, wurde ".$session['user']['name']." zu Tode gequält! (Hackversuch gescheitert).");
+		output("Fï¿½r den Versuch, die Gï¿½tter zu betrï¿½gen, wurdest du niedergeschmettert!`n`n");
+		output("`\$Ramius, der Gott der Toten`) erscheint dir in einer Vision. Dafï¿½r, dass du versucht hast, deinen Geist mit seinem zu messen, sagt er dir wortlos, dass du keinen Gefallen mehr bei ihm hast.`n`n");
+		addnews("`&Fï¿½r den Versuch, die Gï¿½tter zu besudeln, wurde ".$session['user']['name']." zu Tode gequï¿½lt! (Hackversuch gescheitert).");
 		$session['user']['hitpoints']=0;
 		$session['user']['alive']=0;
 		$session['user']['soulpoints']=0;
 		$session['user']['gravefights']=0;
 		$session['user']['deathpower']=0;
 		$session['user']['experience']*=0.75;
-		addnav("Tägliche News","news.php");
+		addnav("Tï¿½gliche News","news.php");
 		page_footer();
 		$sql = "SELECT acctid FROM accounts WHERE superuser>=3";
 		$result = db_query($sql);
 		while ($row = db_fetch_assoc($result)) {
-			systemmail($row['acctid'],"`#{$session['user']['name']}`# hat versucht, Superuser-Seiten zu hacken!","Böse(r), böse(r), böse(r) {$session['user']['name']}, du bist ein Hacker!");
+			systemmail($row['acctid'],"`#{$session['user']['name']}`# hat versucht, Superuser-Seiten zu hacken!","Bï¿½se(r), bï¿½se(r), bï¿½se(r) {$session['user']['name']}, du bist ein Hacker!");
 		}
 		exit();
 	}
@@ -188,11 +188,11 @@ function forest($noshowmessage=false) {
 	global $session,$playermount;
   $conf = unserialize($session['user']['donationconfig']);
   if ($conf['healer'] || $session['user']['acctid']==getsetting("hasegg",0)) {
-  	addnav("H?Golindas Hütte","healer.php");
+  	addnav("H?Golindas Hï¿½tte","healer.php");
   } else {
-  	addnav("H?Hütte des Heilers","healer.php");
+  	addnav("H?Hï¿½tte des Heilers","healer.php");
   }
-  addnav("B?Etwas zum Bekämpfen suchen","forest.php?op=search");
+  addnav("B?Etwas zum Bekï¿½mpfen suchen","forest.php?op=search");
   if ($session['user']['level']>1)
   	addnav("H?Herumziehen","forest.php?op=search&type=slum");
   addnav("N?Nervenkitzel suchen","forest.php?op=search&type=thrill");
@@ -200,23 +200,23 @@ function forest($noshowmessage=false) {
   if ($playermount['tavern']>0) addnav("D?Nimm {$playermount['mountname']} zur Dark Horse Taverne","forest.php?op=darkhorse");
   if ($playermount['tavern']>0 && $conf['castle']) addnav("B?Nimm {$playermount['mountname']} zur Burg","forest.php?op=castle");
   if ($conf['goldmine']>0) addnav("Goldmine (".$conf[goldmine]."x)","paths.php?ziel=goldmine&pass=conf");
-  addnav("Z?Zurück zum Dorf","village.php");
+  addnav("Z?Zurï¿½ck zum Dorf","village.php");
   addnav("","forest.php");
 	if ($session['user']['level']>=15  && $session['user']['seendragon']==0){
-		addnav("G?`@Den Grünen Drachen suchen","forest.php?op=dragon");
+		addnav("G?`@Den Grï¿½nen Drachen suchen","forest.php?op=dragon");
 	}
 	addnav("Sonstiges");
 	addnav("P?Plumpsklo","outhouse.php");
 	if ($session['user']['turns']<=1 ) addnav("Hexenhaus","hexe.php");
 	if ($noshowmessage!=true){
 		output("`c`7`bDer Wald`b`0`c");
-		output("Der Wald, Heimat von bösartigen Kreaturen und üblen Übeltätern aller Art.`n`n");
-		output("Die dichten Blätter des Waldes erlauben an den meisten Stellen nur wenige Meter Sicht.  ");
-		output("Die Wege würden dir verborgen bleiben, hättest du nicht ein so gut geschultes Auge. Du bewegst dich so leise wie ");
-		output("eine milde Brise über den dicken Humus, der den Boden bedeckt. Dabei versuchst du es zu vermeiden ");
-		output("auf dünne Zweige oder irgendwelche der ausgebleichten Knochenstücke zu treten, welche den Waldboden spicken. ");
+		output("Der Wald, Heimat von bï¿½sartigen Kreaturen und ï¿½blen ï¿½beltï¿½tern aller Art.`n`n");
+		output("Die dichten Blï¿½tter des Waldes erlauben an den meisten Stellen nur wenige Meter Sicht.  ");
+		output("Die Wege wï¿½rden dir verborgen bleiben, hï¿½ttest du nicht ein so gut geschultes Auge. Du bewegst dich so leise wie ");
+		output("eine milde Brise ï¿½ber den dicken Humus, der den Boden bedeckt. Dabei versuchst du es zu vermeiden ");
+		output("auf dï¿½nne Zweige oder irgendwelche der ausgebleichten Knochenstï¿½cke zu treten, welche den Waldboden spicken. ");
 		output("Du verbirgst deine Gegenwart vor den abscheulichen Monstern, die den Wald durchwandern.");
-		if ($session['user']['turns']<=1) output(" In der Nähe siehst du wieder den Rauch aus dem Kamin eines windschiefen Hexenhäuschens aufsteigen, von dem du schwören könntest, es war eben noch nicht da. ");
+		if ($session['user']['turns']<=1) output(" In der Nï¿½he siehst du wieder den Rauch aus dem Kamin eines windschiefen Hexenhï¿½uschens aufsteigen, von dem du schwï¿½ren kï¿½nntest, es war eben noch nicht da. ");
 	}
 	if ($session['user']['superuser']>1){
 		output("`n`nSUPERUSER Specials:`n");
@@ -324,20 +324,20 @@ function checkban($login=false){
 function increment_specialty(){
   global $session;
 		if ($session[user][specialty]>0){
-			$skillnames = array(1=>"Dunkle Künste","Mystische Kräfte","Diebeskunst");
+			$skillnames = array(1=>"Dunkle Kï¿½nste","Mystische Krï¿½fte","Diebeskunst");
 			$skills = array(1=>"darkarts","magic","thievery");
 			$skillpoints = array(1=>"darkartuses","magicuses","thieveryuses");
 			$session[user][$skills[$session[user][specialty]]]++;
 			output("`nDu steigst in `&".$skillnames[$session[user][specialty]]."`# ein Level auf ".$session[user][$skills[$session[user][specialty]]]." auf. ");
 			$x = ($session[user][$skills[$session[user][specialty]]]) % 3;
 			if ($x == 0){
-				output("Du bekommst eine zusätzliche Anwendung!`n");
+				output("Du bekommst eine zusï¿½tzliche Anwendung!`n");
 				$session[user][$skillpoints[$session[user][specialty]]]++;
 			}else{
-				output("Nur noch ".(3-$x)." weitere Stufen, bis du eine zusätzliche Anwendung erhältst!`n");
+				output("Nur noch ".(3-$x)." weitere Stufen, bis du eine zusï¿½tzliche Anwendung erhï¿½ltst!`n");
 			}
 		}else{
-			output("`7Du wanderst ziel- und planlos durchs Leben. Du solltest eine Rast machen und einige wichtige Entscheidungen für dein weiteres Leben treffen.`n");
+			output("`7Du wanderst ziel- und planlos durchs Leben. Du solltest eine Rast machen und einige wichtige Entscheidungen fï¿½r dein weiteres Leben treffen.`n");
 		}
 }
 
@@ -345,19 +345,19 @@ function fightnav($allowspecial=true, $allowflee=true){
   global $PHP_SELF,$session;
 	//$script = str_replace("/","",$PHP_SELF);
 	$script = substr($PHP_SELF,strrpos($PHP_SELF,"/")+1);
-	addnav("Kämpfen","$script?op=fight");
+	addnav("Kï¿½mpfen","$script?op=fight");
 	if ($allowflee) {
 		addnav("Wegrennen","$script?op=run");
 	}
 	if (getsetting("autofight",0)){
 		addnav("AutoFight");
-		addnav("5 Runden kämpfen","$script?op=fight&auto=five");
+		addnav("5 Runden kï¿½mpfen","$script?op=fight&auto=five");
 		addnav("Bis zum bitteren Ende","$script?op=fight&auto=full");
 	}
 	if ($allowspecial) {
-		addnav("`bBesondere Fähigkeiten`b");
+		addnav("`bBesondere Fï¿½higkeiten`b");
 		if ($session[user][darkartuses]>0) {
-			addnav("`\$Dunkle Künste`0", "");
+			addnav("`\$Dunkle Kï¿½nste`0", "");
 			addnav("`\$&#149; Skelette herbeirufen`7 (1/".$session[user][darkartuses].")`0","$script?op=fight&skill=DA&l=1",true);
 		}
 		if ($session[user][darkartuses]>1)
@@ -368,7 +368,7 @@ function fightnav($allowspecial=true, $allowflee=true){
 			addnav("`\$&#149; Seele verdorren`7 (5/".$session[user][darkartuses].")`0","$script?op=fight&skill=DA&l=5",true);
 	
 		if ($session[user][thieveryuses]>0) {
-			addnav("`^Diebeskünste`0","");
+			addnav("`^Diebeskï¿½nste`0","");
 			addnav("`^&#149; Beleidigen`7 (1/".$session[user][thieveryuses].")`0","$script?op=fight&skill=TS&l=1",true);
 		}
 		if ($session[user][thieveryuses]>1)
@@ -379,7 +379,7 @@ function fightnav($allowspecial=true, $allowflee=true){
 			addnav("`^&#149; Angriff von hinten`7 (5/".$session[user][thieveryuses].")`0","$script?op=fight&skill=TS&l=5",true);
 	
 		if ($session[user][magicuses]>0) {
-			addnav("`%Mystische Kräfte`0","");
+			addnav("`%Mystische Krï¿½fte`0","");
 			//disagree with making this 'n', players shouldn't have their behavior dictated by convenience of god mode, hehe
 			addnav("g?`%&#149; Regeneration`7 (1/".$session[user][magicuses].")`0","$script?op=fight&skill=MP&l=1",true);
 		}
@@ -597,7 +597,7 @@ function appoencode($data,$priv=false){
 	return $output;
 }
 
-// Angegebene Tags am Ende des Strings schließen
+// Angegebene Tags am Ende des Strings schlieï¿½en
 // (macht keinen Sinn bei Farben, da die nicht geschlossen werden)
 function closetags($string, $tags) {
 	$tags = explode('`',$tags);
@@ -635,7 +635,7 @@ function charstats(){
 		$atk=$u[attack];
 		$def=$u[defence];
 		while (list($key,$val)=each($session[bufflist])){
-			$buffs.=appoencode("`#$val[name] `7($val[rounds] Runden übrig)`n",true);
+			$buffs.=appoencode("`#$val[name] `7($val[rounds] Runden ï¿½brig)`n",true);
 			if (isset($val[atkmod])) $atk *= $val[atkmod];
 			if (isset($val[defmod])) $def *= $val[defmod];
 		}
@@ -678,7 +678,7 @@ function charstats(){
 		.templatereplace("statrow",array("title"=>"Gold","value"=>$u['gold']))
 		.templatereplace("statrow",array("title"=>"Erfahrung","value"=>expbar()))
 		.templatereplace("statrow",array("title"=>"Waffe","value"=>$u['weapon']))
-		.templatereplace("statrow",array("title"=>"Rüstung","value"=>$u['armor']))
+		.templatereplace("statrow",array("title"=>"Rï¿½stung","value"=>$u['armor']))
 		,true);
 		if (getsetting("dispnextday",0)){
 			$time = gametime(); 
@@ -686,7 +686,7 @@ function charstats(){
 			$tomorrow = strtotime(date("Y-m-d 00:00:00",$tomorrow)); 
 			$secstotomorrow = $tomorrow-$time; 
 			$realsecstotomorrow = round($secstotomorrow / (int)getsetting("daysperday",4));
-			$charstat.=appoencode(templatereplace("statrow",array("title"=>"Nächster Tag","value"=>date("G\\h, i\\m, s\\s \\",strtotime("1980-01-01 00:00:00 + $realsecstotomorrow seconds")))),true);
+			$charstat.=appoencode(templatereplace("statrow",array("title"=>"Nï¿½chster Tag","value"=>date("G\\h, i\\m, s\\s \\",strtotime("1980-01-01 00:00:00 + $realsecstotomorrow seconds")))),true);
 		}
 		if (!is_array($session[bufflist])) $session[bufflist]=array();
 		$charstat.=appoencode(templatereplace("statbuff",array("title"=>"Aktionen","value"=>$buffs)),true);
@@ -1146,7 +1146,7 @@ $paypalstr .= '</td></tr></table>';
 			if ($row['lastact']>$session['lastlogoff']) $petitions['unread'] = true;
 		}
 		db_free_result($result);
-		// Neue Petitionen; schauen, ob Sternchen nötig ist
+		// Neue Petitionen; schauen, ob Sternchen nï¿½tig ist
 		$petitions['star'] = '';
 		if ($petitions['unread']) {
 			$sql = 'SELECT petitionid, lastact FROM petitions WHERE lastact > "'.$session['lastlogoff'].'"';
@@ -1507,7 +1507,7 @@ function addcommentary() {
 	return false;
 }
 
-function viewcommentary($section,$message="Kommentar hinzufügen?",$limit=10,$talkline="sagt") {
+function viewcommentary($section,$message="Kommentar hinzufï¿½gen?",$limit=10,$talkline="sagt") {
 	global $HTTP_POST_VARS,$session,$REQUEST_URI,$HTTP_GET_VARS, $doublepost;
 	$nobios = array("motd.php"=>true);
 	if ($nobios[basename($_SERVER['SCRIPT_NAME'])]) $linkbios=false; else $linkbios=true;
@@ -1586,7 +1586,7 @@ function viewcommentary($section,$message="Kommentar hinzufügen?",$limit=10,$tal
 	for (;$i>=0;$i--){
 		$out="";
 		if ($session[user][superuser]>=3 && $message=="X"){
-			$out.="`0[ <a href='superuser.php?op=commentdelete&commentid=$commentids[$i]&return=".URLEncode($_SERVER['REQUEST_URI'])."'>Löschen</a> ]&nbsp;";
+			$out.="`0[ <a href='superuser.php?op=commentdelete&commentid=$commentids[$i]&return=".URLEncode($_SERVER['REQUEST_URI'])."'>Lï¿½schen</a> ]&nbsp;";
 			addnav("","superuser.php?op=commentdelete&commentid=$commentids[$i]&return=".URLEncode($_SERVER['REQUEST_URI']));
 			$matches=array();
 			preg_match("/[(][^)]*[)]/",$op[$i],$matches);
@@ -1608,11 +1608,11 @@ function viewcommentary($section,$message="Kommentar hinzufügen?",$limit=10,$tal
 		//if ($counttoday<($limit/2) || $session['user']['superuser']>=2){
 			if ($message!="X"){
 				if ($talkline!="says") $tll = strlen($talkline)+11; else $tll=0;
-				output("<form action=\"$REQUEST_URI\" method='POST'>`@$message`n<input name='insertcommentary[$section]' size='40' maxlength='".(200-$tll)."'><input type='hidden' name='talkline' value='$talkline'><input type='hidden' name='section' value='$section'><input type='submit' class='button' value='Hinzufügen'>`n".(round($limit/2,0)-$counttoday<3?"`)(Du hast noch ".(round($limit/2,0)-$counttoday)." Beiträge für heute übrig)":"")."`0`n</form>",true);
+				output("<form action=\"$REQUEST_URI\" method='POST'>`@$message`n<input name='insertcommentary[$section]' size='40' maxlength='".(200-$tll)."'><input type='hidden' name='talkline' value='$talkline'><input type='hidden' name='section' value='$section'><input type='submit' class='button' value='Hinzufï¿½gen'>`n".(round($limit/2,0)-$counttoday<3?"`)(Du hast noch ".(round($limit/2,0)-$counttoday)." Beitrï¿½ge fï¿½r heute ï¿½brig)":"")."`0`n</form>",true);
 				addnav("",$REQUEST_URI);
 			}
 //		}else{
-//			output("`@$message`nSorry, du hast deine Beiträge in dieser Region für heute aufgebraucht.`0`n");
+//			output("`@$message`nSorry, du hast deine Beitrï¿½ge in dieser Region fï¿½r heute aufgebraucht.`0`n");
 //		}
 	}
 	if (db_num_rows($result)>=$limit){
@@ -1634,7 +1634,7 @@ function viewcommentary($section,$message="Kommentar hinzufügen?",$limit=10,$tal
 			//$req = substr($REQUEST_URI,0,strpos($REQUEST_URI,"c="))."&c=$HTTP_GET_VARS[c]"."&comscroll=".($com-1);
 			$req = str_replace("?&","?",$req);
 			if (!strpos($req,"?")) $req = str_replace("&","?",$req);
-			output(" <a href=\"$req\">Nächste &gt;&gt;</a>",true);
+			output(" <a href=\"$req\">Nï¿½chste &gt;&gt;</a>",true);
 			addnav("",$req);
 		}
 	db_free_result($result);
@@ -1701,12 +1701,12 @@ function grafbar($full,$left,$width=70,$height=5) {
 if (file_exists("dbconnect.php")){
 	require_once "dbconnect.php";
 }else{
-	echo "Du must die benötigten Informationen in die Datei \"dbconnect.php.dist\" eintragen und sie unter dem Namen \"dbconnect.php\" speichern.".
+	echo "Du must die benï¿½tigten Informationen in die Datei \"dbconnect.php.dist\" eintragen und sie unter dem Namen \"dbconnect.php\" speichern.".
 	exit();
 }
 
 $link = db_pconnect($DB_HOST, $DB_USER, $DB_PASS) or die (db_error($link));
-db_select_db ($DB_NAME) or die (db_error($link));
+db_select_db($link, $DB_NAME) or die (db_error($link));
 define("LINK",$link);
 
 require_once "translator.php";
@@ -1893,22 +1893,22 @@ $session['user']['laston']=date("Y-m-d H:i:s");
 $playermount = getmount($session['user']['hashorse']);
 
 $titles = array(
-	0=>array("Bauernjunge","Bauernmädchen"),
+	0=>array("Bauernjunge","Bauernmï¿½dchen"),
 	1=>array("Knecht", "Magd"),
-	2=>array("Bauer", "Bäuerin"),
-	3=>array("Grossbauer", "Grossbäuerin"),
+	2=>array("Bauer", "Bï¿½uerin"),
+	3=>array("Grossbauer", "Grossbï¿½uerin"),
 	4=>array("Spurenleser","Spurenleserin"),
-    	5=>array("Jäger","Jägerin"),
+    	5=>array("Jï¿½ger","Jï¿½gerin"),
 	6=>array("Gutshofverwalter","Gutshofverwalterin"),
 	7=>array("Gutsherr","Gutsherrin"),
-	8=>array("Bürger","Bürgerin"),
+	8=>array("Bï¿½rger","Bï¿½rgerin"),
 	9=>array("Gladiator","Gladiatorin"),
-	10=>array("Legionär","Legionärin"),
+	10=>array("Legionï¿½r","Legionï¿½rin"),
 	11=>array("Centurio","Centurioness"),
 	12=>array("Meister","Meisterin"),
 	13=>array("Ratsherr", "Ratsfrau"),
 	14=>array("Verwalter","Verwalterin"),
-	15=>array("Bürgermeister", "Bürgermeisterin"),
+	15=>array("Bï¿½rgermeister", "Bï¿½rgermeisterin"),
 	16=>array("Major", "Major"),
 	17=>array("General", "General"),
 	18=>array("Edler", "Edle"),
@@ -1916,17 +1916,17 @@ $titles = array(
 	20=>array("Junker", "Junkerin"),
 	21=>array("Freiherr", "Freifrau"),
 	22=>array("Baron", "Baronin"),
-	23=>array("Fürst", "Fürstin"),
-	24=>array("Grossfürst", "Grossfürstin"),
+	23=>array("Fï¿½rst", "Fï¿½rstin"),
+	24=>array("Grossfï¿½rst", "Grossfï¿½rstin"),
 	25=>array("Herzog", "Herzogin"),
-	26=>array("Graf", "Gräfin"),
+	26=>array("Graf", "Grï¿½fin"),
 	27=>array("Prinz", "Prinzessin"),
 	28=>array("Kronprinz", "Kronprinzessin"),
-	29=>array("König", "Königin"),
+	29=>array("Kï¿½nig", "Kï¿½nigin"),
 	30=>array("Kaiser", "Kaiserin"),
-	31=>array("Drachentöter","Drachentöterin"),
-	32=>array("Bischof","Bischöfin"),
-	33=>array("Papst", "Päpstin"),
+	31=>array("Drachentï¿½ter","Drachentï¿½terin"),
+	32=>array("Bischof","Bischï¿½fin"),
+	33=>array("Papst", "Pï¿½pstin"),
 	34=>array("Seele", "Seele"),
 	35=>array("Seliger", "Selige"),
 	36=>array("Heiliger", "Heilige"),
@@ -1940,8 +1940,8 @@ $titles = array(
 	44=>array("Cherubim", "Cherubim"),
 	45=>array("Titan","Titanin"),
 	46=>array("Erztitan","Erztitanin"),
-	47=>array("Halbgott", "Halbgöttin"),
-	48=>array("Untergott","Untergöttin")
+	47=>array("Halbgott", "Halbgï¿½ttin"),
+	48=>array("Untergott","Untergï¿½ttin")
 );
 
 $beta = (getsetting("beta",0) == 1 || $session['user']['beta']==1);

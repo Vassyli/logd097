@@ -32,7 +32,7 @@ function set_magic_quotes(&$vars) {
 	}
 }
 
-define('DBTYPE',"mysql");
+define('DBTYPE',"mysqli");
 
 $dbqueriesthishit=0;
 $dbtimethishit = 0;
@@ -118,11 +118,11 @@ function db_pconnect($host,$user,$pass){
 	return $r;
 }
 
-function db_select_db($dbname){
+function db_select_db($link, $dbname){
 	global $dbtimethishit;
 	$dbtimethishit -= getmicrotime();
 	$fname = DBTYPE."_select_db";
-	$r = $fname($dbname);
+	$r = $fname($link, $dbname);
 	$dbtimethishit += getmicrotime();
 	return $r;
 }
