@@ -1,4 +1,5 @@
-<?
+<?php
+
 require_once "common.php";
 if ($session['user']['loggedin'] && $session['loggedin']){
 	if (strpos($session[output],"<!--CheckNewDay()-->")){
@@ -15,7 +16,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 	if (!is_array($session['allowednavs']) || count($session['allowednavs'])==0 || $session['output']=="") {
 		$session['allowednavs']=array();
 		addnav("","village.php");
-		echo "<a href='village.php'>Deine erlaubten Navs waren beschädigt. Zurück zum Dorf.</a>";
+		echo "<a href='village.php'>Deine erlaubten Navs waren beschÃ¤digt. ZurÃ¼ck zum Dorf.</a>";
 	}
 	echo $session['output'];
 	$session['debug']="";

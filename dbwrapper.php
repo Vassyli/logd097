@@ -7,10 +7,10 @@
 error_reporting (E_ALL ^ E_NOTICE);
 
 // compability for old style global vars
-$HTTP_GET_VARS &= $_GET;
-$HTTP_POST_VARS &= $_POST;
-$HTTP_COOKIE_VARS &= $_COOKIE;
-$HTTP_SESSION_VARS &= $_SESSION;
+$HTTP_GET_VARS = &$_GET;
+$HTTP_POST_VARS = &$_POST;
+$HTTP_COOKIE_VARS = &$_COOKIE;
+$HTTP_SESSION_VARS = &$_SESSION;
 
 if (!get_magic_quotes_gpc()){
 	set_magic_quotes($_GET);

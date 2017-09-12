@@ -882,7 +882,7 @@ function showform($layout,$row,$nosave=false){
 	global $output;
 	output("<table>",true);
 	while(list($key,$val)=each($layout)){
-		$info = split(",",$val);
+		$info = explode(",",$val);
 		if ($info[1]=="title"){
 			output("<tr><td colspan='2' bgcolor='#666666'>",true);
 			output("`b`^$info[0]`0`b");
@@ -961,7 +961,7 @@ function redirect($location,$reason=false){
 function loadtemplate($templatename){
 	if (!file_exists("templates/$templatename") || $templatename=="") $templatename="yarbrough.htm";
 	$fulltemplate = join("",file("templates/$templatename"));
-	$fulltemplate = split("<!--!",$fulltemplate);
+	$fulltemplate = explode("<!--!",$fulltemplate);
 	while (list($key,$val)=each($fulltemplate)){
 		$fieldname=substr($val,0,strpos($val,"-->"));
 		if ($fieldname!=""){
@@ -1254,7 +1254,7 @@ function soap($input){
 		$search = str_replace(" ","$end $start", $search);
 		$search = "$start".$search."$end";
 		//echo $search;
-		$search = split(" ",$search);
+		$search = explode(" ",$search);
 		//$input = " $input ";
 	
 		return preg_replace($search,"\\1`i$@#%`i\\2",$input);
@@ -1276,13 +1276,28 @@ function saveuser(){
 		//$session[user][laston] = date("Y-m-d H:i:s");
   	$sql="UPDATE accounts SET ";
   	reset($session[user]);
-  	while(list($key,$val)=each($session[user])){
+
+  	$updating = 0;
+    foreach ($session['user'] as $key => $val) {
+  	    $old_val = $session["user_copy"][$key];
+
+  	    if ($old_val == $val) {
+  	        continue;
+        }
+
   		if (is_array($val)){
-				$sql.="$key='".addslashes(serialize($val))."', ";
-			}else{
-				$sql.="$key='".addslashes($val)."', ";
-			}
+            $sql.="$key='".addslashes(serialize($val))."', ";
+        } else {
+            $sql.="$key='".addslashes($val)."', ";
+        }
+
+        $updating++;
   	}
+
+    if ($updating == 0) {
+        return;
+    }
+    
   	$sql = substr($sql,0,strlen($sql)-2);
   	$sql.=" WHERE acctid = ".$session[user][acctid];
   	db_query($sql);
@@ -1301,10 +1316,10 @@ function createstring($array){
 }
 
 function createarray($string){
-  $arr1 = split("\"",$string);
+  $arr1 = explode("\"",$string);
   $output = array();
   while (list($key,$val)=each($arr1)){
-    $arr2=split("\"",rawurldecode($val));
+    $arr2=explode("\"",rawurldecode($val));
     $output[rawurldecode($arr2[0])] = rawurldecode($arr2[1]);
   }
   return $output;
@@ -1711,8 +1726,9 @@ define("LINK",$link);
 
 require_once "translator.php";
 
+session_name("session");
+session_start();
 
-session_register("session");
 function register_global(&$var){
 	@reset($var);
 	while (list($key,$val)=@each($var)){
@@ -1721,6 +1737,7 @@ function register_global(&$var){
 	}
 	@reset($var);
 }
+
 $session =& $_SESSION['session'];
 //echo nl2br(htmlentities(output_array($session)));
 //register_global($_SESSION);
@@ -1767,10 +1784,12 @@ if (strpos($REQUEST_URI,"?")){
 $allowanonymous=array("index.php"=>true,"login.php"=>true,"create.php"=>true,"about.php"=>true,"list.php"=>true,"petition.php"=>true,"connector.php"=>true,"logdnet.php"=>true,"referral.php"=>true,"news.php"=>true,"motd.php"=>true,"topwebvote.php"=>true,"source.php"=>true);
 $allownonnav = array("badnav.php"=>true,"motd.php"=>true,"petition.php"=>true,"mail.php"=>true,"topwebvote.php"=>true,"chat.php"=>true,"source.php"=>true);
 if ($session[loggedin]){
-	$sql = "SELECT * FROM accounts WHERE acctid = '".$session[user][acctid]."'";
+	$sql = "SELECT * FROM accounts WHERE acctid = '".intval($session[user][acctid])."'";
 	$result = db_query($sql);
 	if (db_num_rows($result)==1){
 		$session[user]=db_fetch_assoc($result);
+		$session['user_copy'] = $session['user'];
+
 		$session[output]=$session[user][output];
 		$session[user][dragonpoints]=unserialize($session[user][dragonpoints]);
 		$session[user][prefs]=unserialize($session[user][prefs]);
